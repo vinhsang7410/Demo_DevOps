@@ -1,3 +1,5 @@
+////https://www.microfocus.com/documentation/arcsight/arcsight-platform-22.1/arcsight-admin-guide-22.1/Content/deployment_cloud/AWS_CLI_configure.htm
+////
 terraform {
   required_providers {
     aws = {
@@ -10,7 +12,14 @@ terraform {
 }
 
 provider "aws" {
-  region  = var.region
+  region  = "us-west-2"
 }
 
+resource "aws_instance" "app_server" {
+  ami           = "ami-830c94e3"
+  instance_type = "t2.micro"
 
+  tags = {
+    Name = "ExampleAppServerInstance"
+  }
+}
