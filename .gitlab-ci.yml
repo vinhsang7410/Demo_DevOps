@@ -1,2 +1,3 @@
 include:
-  - local: '/gitlab/.cicd.yml'
+  - project: 'vinhsang7410/ias_aws_demo'
+    file: 'gitlab/.cicd.yml'
