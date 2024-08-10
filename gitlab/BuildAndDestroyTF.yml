@@ -1,6 +1,4 @@
-image:
-  name: hashicorp/terraform:latest
-  entrypoint: [""]
+image: hashicorp/terraform:latest
 
 stages:
   - init
