@@ -1,2 +1,2 @@
 include:
-  - local: 'gitlab/cicd.yml'
+  - local: 'gitlab/BuildAndDestroyTF.yml'

@@ -1,0 +1,41 @@
+image: hashicorp/terraform:latest
+
+stages:
+  - init
+  - plan
+  - apply
+  - destroy
+
+variables:
+  TF_IN_AUTOMATION: true
+  TF_ROOT: "env/dev"
+
+before_script:
+  - terraform --version
+  - cd $TF_ROOT
+  - terraform init
+
+init:
+  stage: init
+  script:
+    - terraform validate
+
+plan:
+  stage: plan
+  script:
+    - terraform plan -out=tfplan
+  artifacts:
+    paths:
+      - $TF_ROOT/tfplan
+
+apply:
+  stage: apply
+  script:
+    - terraform apply -auto-approve tfplan
+
+destroy:
+  stage: destroy
+  when: manual
+  script:
+    - terraform destroy -auto-approve
+
