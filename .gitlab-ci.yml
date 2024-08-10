@@ -1,7 +1,2 @@
-#include:
- # - local: 'gitlab/BuildAndDestroyTF.yml'
 include:
-  - template: Terraform.latest.gitlab-ci.yml
-
-destroy:
-  extends: .terraform:destroy
+  - local: 'gitlab/BuildAndDestroyTF.yml'
