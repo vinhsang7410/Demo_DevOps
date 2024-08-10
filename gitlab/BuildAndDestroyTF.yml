@@ -38,4 +38,3 @@ destroy:
   when: manual
   script:
     - terraform destroy -auto-approve
-
