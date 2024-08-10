@@ -1,2 +1,2 @@
 inclue:
-  - local: 'gitlab/.cicd.yml'
+  - local: '/gitlab/.cicd.yml'
