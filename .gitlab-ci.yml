@@ -1,2 +1,24 @@
+#include:
+ # - local: 'gitlab/BuildAndDestroyTF.yml'
+# Sử dụng template từ GitLab
 include:
-  - local: 'gitlab/BuildAndDestroyTF.yml'
+  - template: Terraform.latest.gitlab-ci.yml
+
+# Nếu bạn muốn thêm hoặc thay đổi job từ template, hãy sử dụng extends
+# Tạo các job theo yêu cầu của bạn
+
+variables:
+  TF_IN_AUTOMATION: "true"
+  TF_ROOT: "env/dev"
+
+before_script:
+  - cd $TF_ROOT
+  - terraform --version
+  - terraform init
+
+# Override hoặc mở rộng job destroy từ template
+destroy:
+  extends: .terraform:destroy
+  variables:
+    # Bạn có thể định nghĩa thêm các biến môi trường hoặc tham số ở đây nếu cần
+    TF_VAR_environment: "dev"
