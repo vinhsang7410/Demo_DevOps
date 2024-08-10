@@ -1,40 +1,55 @@
-image: hashicorp/terraform:latest
+include:
+
+ - template: Terraform/Base.gitlab-ci.yml  
+
+ - template: Jobs/SAST-IaC.gitlab-ci.yml   
+
+
 
 stages:
-  - init
-  - plan
-  - apply
-  - destroy
 
-variables:
-  TF_IN_AUTOMATION: true
-  TF_ROOT: "env/dev"
+ - validate
 
-before_script:
-  - terraform --version
-  - cd $TF_ROOT
-  - terraform init
+ - test
 
-init:
-  stage: init
-  script:
-    - terraform validate
+ - build
 
-plan:
-  stage: plan
-  script:
-    - terraform plan -out=tfplan
-  artifacts:
-    paths:
-      - $TF_ROOT/tfplan
+ - deploy
 
-apply:
-  stage: apply
-  script:
-    - terraform apply -auto-approve tfplan
+ - cleanup
 
-destroy:
-  stage: destroy
-  when: manual
-  script:
-    - terraform destroy -auto-approve
+
+
+fmt:
+
+ extends: .terraform:fmt
+
+ needs: []
+
+
+
+validate:
+
+ extends: .terraform:validate
+
+ needs: []
+
+
+
+build:
+
+ extends: .terraform:build
+
+
+
+deploy:
+
+ extends: .terraform:deploy
+
+ dependencies:
+
+   - build
+
+ environment:
+
+   name: $TF_STATE_NAME
