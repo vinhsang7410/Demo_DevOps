@@ -1,2 +1,2 @@
-inclue:
+include:
   - local: '/gitlab/.cicd.yml'
