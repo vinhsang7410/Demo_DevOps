@@ -11,7 +11,6 @@ variables:
   TF_ROOT: "env/dev"
 
 before_script:
-  - terraform --version
   - cd $TF_ROOT
   - terraform init
 
@@ -26,7 +25,7 @@ plan:
     - terraform plan -out=tfplan
   artifacts:
     paths:
-      - $TF_ROOT/tfplan
+      - tfplan
 
 apply:
   stage: apply
